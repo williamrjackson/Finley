@@ -4,6 +4,8 @@ public class FishEatController : MonoBehaviour
 {
     [SerializeField]
     private SpriteRenderer sprite = null;
+    [SerializeField]
+    private int mealsToGrow = 5;
 
     private int _fishSize = 1;
     public int Size
@@ -41,7 +43,7 @@ public class FishEatController : MonoBehaviour
                 Time.timeScale = 0f;
             }
 
-            if (mealCount > 4)
+            if (mealCount > mealsToGrow - 1)
             {
                 Size++;
                 mealCount = 0;

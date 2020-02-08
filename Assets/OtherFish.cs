@@ -5,7 +5,11 @@ public class OtherFish : MonoBehaviour
     [SerializeField]
     private bool leftToRight = true;
     [SerializeField]
+    private Transform spriteTransform = null;
+    [SerializeField]
     private SpriteRenderer sprite = null;
+    [SerializeField]
+    private Sprite altSprite = null;
     public float speed = .5f;
     public float noiseSmooth = 1f;
     public float overallScale = 1f;
@@ -18,7 +22,11 @@ public class OtherFish : MonoBehaviour
         private set
         {
             _fishSize = value;
-            sprite.transform.localScale = Vector3.one * _fishSize.Remap(0f, 10f, .25f, 2f);
+            spriteTransform.localScale = Vector3.one * _fishSize.Remap(0f, 10f, .25f, 2f);
+            if (_fishSize > 0)
+            {
+                sprite.sprite = altSprite;
+            }
         }
         get
         {
