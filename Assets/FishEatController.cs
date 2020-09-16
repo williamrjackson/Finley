@@ -6,6 +6,8 @@ public class FishEatController : MonoBehaviour
     private SpriteRenderer sprite = null;
     [SerializeField]
     private int mealsToGrow = 5;
+    [SerializeField]
+    private NanaJumpscare jumpScare;
 
     private int _fishSize = 1;
     public int Size
@@ -39,8 +41,9 @@ public class FishEatController : MonoBehaviour
             }
             else
             {
-                Debug.Log("GameOver");
-                Time.timeScale = 0f;
+                jumpScare.JumpScare();
+                //Debug.Log("GameOver");
+                //Time.timeScale = 0f;
             }
 
             if (mealCount > mealsToGrow - 1)
