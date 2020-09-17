@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class FishControl : MonoBehaviour
 {
+    public static FishControl instance;
     public TouchAxisCtrl touchAxis;
     public float speed = 7.0F;
 
@@ -9,9 +11,58 @@ public class FishControl : MonoBehaviour
     private float dir;
     private float cachedDir;
 
-    void Start()
+    public UnityAction OnGameOver;
+    public UnityAction OnRestart;
+
+    private static bool _gameOver = false;
+    public static bool IsGameOver
+    {
+        get => _gameOver;
+        set
+        {
+            if (_gameOver != value)
+            {
+                _gameOver = value;
+                if (_gameOver == true)
+                {
+                    if (instance.OnGameOver != null)
+                        instance.OnGameOver();
+                }
+                else
+                {
+                    if (instance.OnRestart != null)
+                        instance.OnRestart();
+                }
+            }
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+    void OnEnable()
     {
         initXScale = transform.localScale.x;
+        OnGameOver += Hide;
+        OnRestart += Restart;
+    }
+
+    void Hide()
+    {
+        transform.localScale = Vector3.zero;
+    }
+
+    void Restart()
+    {
+        Wrj.SceneReloader.ReloadScene();
     }
 
     void Update()
@@ -26,6 +77,11 @@ public class FishControl : MonoBehaviour
                 cachedDir = dir;
                 transform.Scale(transform.localScale.With(x: dir), .25f);
             }
+        }
+
+        if (IsGameOver && Input.GetMouseButtonDown(0))
+        {
+            IsGameOver = false;
         }
     }
 }

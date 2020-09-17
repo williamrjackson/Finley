@@ -51,6 +51,7 @@ public class OtherFish : MonoBehaviour
     {
         randomNoiseSeed = Random.Range(0f, 100f);
         Size = 0;
+        FishControl.instance.OnGameOver += () => { Destroy(this.gameObject); };
     }
 
     void Update()

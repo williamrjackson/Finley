@@ -10,6 +10,7 @@ public class FishEatController : MonoBehaviour
     private NanaJumpscare jumpScare;
 
     private int _fishSize = 1;
+
     public int Size
     {
         private set
@@ -41,9 +42,7 @@ public class FishEatController : MonoBehaviour
             }
             else
             {
-                jumpScare.JumpScare();
-                //Debug.Log("GameOver");
-                //Time.timeScale = 0f;
+                FishControl.IsGameOver = true;
             }
 
             if (mealCount > mealsToGrow - 1)

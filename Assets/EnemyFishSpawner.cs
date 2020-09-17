@@ -3,7 +3,6 @@
 public class EnemyFishSpawner : MonoBehaviour
 {
     public OtherFish prototype;
-    public FishEatController playerFish;
     public int initialEnemies = 6;
     void Start()
     {
